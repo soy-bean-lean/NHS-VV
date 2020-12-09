@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../Button";
 import FormGroup from "../FormGroup";
-import Heading from "../Heading";
+import FormHeading from "../FormHeading";
 import Input from "../Input";
 import ErrorSummary from "../ErrorSummary";
 import Label from "../Label";
@@ -129,8 +129,8 @@ const AddWardForm = ({ errors, setErrors, hospitals, defaultHospitalId }) => {
   return (
     <>
       <ErrorSummary errors={errors} />
+      <FormHeading>Add a ward</FormHeading>
       <Form onSubmit={onSubmit}>
-        <Heading>Add a ward</Heading>
         <FormGroup>
           <Label htmlFor="ward-name" className="nhsuk-label--l">
             What is the ward name?
