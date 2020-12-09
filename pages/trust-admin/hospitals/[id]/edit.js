@@ -67,7 +67,7 @@ const EditHospital = ({ hospital, error, trust }) => {
               {trust.name}
               <span className="nhsuk-u-visually-hidden">-</span>
             </span>
-            Edit a hospital
+            Hospitals
           </Heading>
           <ErrorSummary errors={errors} />
           <EditHospitalForm
