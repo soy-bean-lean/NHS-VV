@@ -7,9 +7,10 @@ import verifyTrustAdminToken from "../../../src/usecases/verifyTrustAdminToken";
 import propsWithContainer from "../../../src/middleware/propsWithContainer";
 import { TRUST_ADMIN } from "../../../src/helpers/userTypes";
 import EditHospitalForm from "../../../src/components/EditHospitalForm";
+import Heading from "../../../src/components/Heading";
 import ErrorSummary from "../../../src/components/ErrorSummary";
 
-const AddAHospital = ({ error, trustId }) => {
+const AddAHospital = ({ error, trustId, trust }) => {
   if (error) {
     return <Error />;
   }
@@ -72,6 +73,13 @@ const AddAHospital = ({ error, trustId }) => {
     >
       <GridRow>
         <GridColumn width="two-thirds">
+          <Heading>
+            <span className="nhsuk-caption-l">
+              {trust.name}
+              <span className="nhsuk-u-visually-hidden">-</span>
+            </span>
+            Add a hospital
+          </Heading>
           <ErrorSummary errors={errors} />
           <EditHospitalForm
             errors={errors}
@@ -85,11 +93,15 @@ const AddAHospital = ({ error, trustId }) => {
 };
 
 export const getServerSideProps = propsWithContainer(
-  verifyTrustAdminToken(async ({ authenticationToken }) => {
+  verifyTrustAdminToken(async ({ authenticationToken, container }) => {
     const trustId = authenticationToken.trustId;
+    const trustResponse = await container.getRetrieveTrustById()(
+      authenticationToken.trustId
+    );
     return {
       props: {
         trustId,
+        trust: { name: trustResponse.trust?.name },
       },
     };
   })

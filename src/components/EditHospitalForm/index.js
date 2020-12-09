@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from "../Button";
 import FormGroup from "../FormGroup";
-import Heading from "../Heading";
 import Input from "../Input";
 import Label from "../Label";
 import Form from "../Form";
@@ -74,7 +73,6 @@ const EditHospitalForm = ({ errors, setErrors, hospital = {}, submit }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <Heading>{action} a hospital</Heading>
       <FormGroup>
         <Label htmlFor="hospital-name" className="nhsuk-label--l">
           What is the hospital name?
