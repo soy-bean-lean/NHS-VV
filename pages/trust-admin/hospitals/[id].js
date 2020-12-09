@@ -3,7 +3,6 @@ import Error from "next/error";
 import Router from "next/router";
 import propsWithContainer from "../../../src/middleware/propsWithContainer";
 import verifyTrustAdminToken from "../../../src/usecases/verifyTrustAdminToken";
-import Button from "../../../src/components/Button";
 import Heading from "../../../src/components/Heading";
 import { GridRow, GridColumn } from "../../../src/components/Grid";
 import Layout from "../../../src/components/Layout";
@@ -12,6 +11,7 @@ import NumberTile from "../../../src/components/NumberTile";
 import Panel from "../../../src/components/Panel";
 import HospitalSummaryList from "../../../src/components/HospitalSummaryList";
 import { TRUST_ADMIN } from "../../../src/helpers/userTypes";
+import ActionLink from "../../../src/components/ActionLink";
 
 const ShowHospital = ({
   hospital,
@@ -35,6 +35,9 @@ const ShowHospital = ({
       <GridRow>
         <GridColumn width="full">
           <Heading>{hospital.name}</Heading>
+          <ActionLink href={`/trust-admin/wards/add?hospitalId=${hospital.id}`}>
+            Add a ward
+          </ActionLink>
           <GridRow className="nhsuk-u-padding-bottom-3">
             <GridColumn
               className="nhsuk-u-padding-bottom-3 nhsuk-u-one-half"
@@ -85,18 +88,6 @@ const ShowHospital = ({
           />
 
           <WardsTable wards={wards} wardVisitTotals={wardVisitTotals} />
-
-          <Button
-            className="nhsuk-button"
-            onClick={() => {
-              Router.push({
-                pathname: `/trust-admin/wards/add`,
-                query: { hospitalId: hospital.id },
-              });
-            }}
-          >
-            Add a ward
-          </Button>
         </GridColumn>
       </GridRow>
     </Layout>
