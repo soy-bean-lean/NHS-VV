@@ -14,6 +14,7 @@ import { TRUST_ADMIN } from "../../../src/helpers/userTypes";
 import ActionLink from "../../../src/components/ActionLink";
 
 const ShowHospital = ({
+  trust,
   hospital,
   wards,
   error,
@@ -34,7 +35,13 @@ const ShowHospital = ({
     >
       <GridRow>
         <GridColumn width="full">
-          <Heading>{hospital.name}</Heading>
+          <Heading>
+            <span className="nhsuk-caption-l">
+              {trust.name}
+              <span className="nhsuk-u-visually-hidden">-</span>
+            </span>
+            {hospital.name}
+          </Heading>
           <ActionLink href={`/trust-admin/wards/add?hospitalId=${hospital.id}`}>
             Add a ward
           </ActionLink>
@@ -99,6 +106,10 @@ export const getServerSideProps = propsWithContainer(
     const { id: hospitalId } = query;
     const trustId = authenticationToken.trustId;
 
+    const trustResponse = await container.getRetrieveTrustById()(
+      authenticationToken.trustId
+    );
+
     const {
       hospital,
       error: hospitalError,
@@ -125,6 +136,7 @@ export const getServerSideProps = propsWithContainer(
 
     return {
       props: {
+        trust: { name: trustResponse.trust?.name },
         hospital,
         wards,
         error: hospitalError || wardsError,
