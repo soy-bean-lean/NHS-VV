@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../Button";
 import FormGroup from "../FormGroup";
-import Heading from "../Heading";
+import FormHeading from "../FormHeading";
 import Input from "../Input";
 import ErrorSummary from "../ErrorSummary";
 import Label from "../Label";
@@ -18,9 +18,7 @@ const EditWardForm = ({
   initialHospitalId,
   hospitals,
 }) => {
-  const hospital = hospitals.find(
-    (hospital) => hospital.id === initialHospitalId
-  );
+  const hospital = hospitals.find((hosp) => hosp.id === initialHospitalId);
   const [hospitalId, setHospitalId] = useState(hospital.id);
   const [wardName, setWardName] = useState(initialName);
   let onSubmitErrors = [];
@@ -70,8 +68,8 @@ const EditWardForm = ({
 
   const onSubmit = async () => {
     onSubmitErrors = [];
-    const setWardNameError = (errors) => {
-      errors.push({
+    const setWardNameError = (err) => {
+      err.push({
         id: "ward-name-error",
         message: "Enter a ward name",
       });
@@ -100,7 +98,7 @@ const EditWardForm = ({
     <>
       <ErrorSummary errors={errors} />
       <Form onSubmit={onSubmit}>
-        <Heading>Edit a ward</Heading>
+        <FormHeading>Edit a ward</FormHeading>
         <FormGroup>
           <Label htmlFor="ward-name" className="nhsuk-label--l">
             What is the ward name?
