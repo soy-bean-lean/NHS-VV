@@ -3,7 +3,7 @@ const express = require("express");
 // const sslRedirect = require("heroku-ssl-redirect");
 const log = require("./logger");
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
